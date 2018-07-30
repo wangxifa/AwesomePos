@@ -20,8 +20,8 @@
                         </div>
                             <div class="button">
                                 <el-button type="warning" >挂单</el-button>
-                                <el-button type="danger" >删除</el-button>
-                                <el-button type="success" >结账</el-button>
+                                <el-button type="danger"  @click="delAllGoods()" >删除</el-button>
+                                <el-button type="success" @click="checkout()">结账</el-button>
                              </div>                       
                     </el-tab-pane>
                     <el-tab-pane label="挂单">
@@ -51,7 +51,7 @@
                     <el-tabs>
                         <el-tab-pane label="汉堡">
                              <div>
-                                <ul class='cookList' v-for="goods in type0Goods">
+                                <ul class='cookList' v-for="goods in type0Goods" @click="addOrderList(goods)">
                                     <li>
                                          <span class="foodImg"><img :src="goods.goodsImg" width="100%"></span>
                                          <span class="foodName">{{goods.goodsName}}</span>
@@ -140,7 +140,9 @@ export default {
           
       ],
            oftenGoods:[],
-            tableData: []
+            tableData: [],
+            totalCount:[],
+            totalMoney:[]
       }
   },
   created(){
@@ -160,6 +162,21 @@ mounted: function(){
       
   },
   methods:{
+      checkout() {
+    if (this.totalCount!=0) {
+        this.tableData = [];
+        this.totalCount = 0;
+        this.totalMoney = 0;
+        this.$message({
+            message: '结账成功，感谢你又为店里出了一份力!',
+            type: 'success'
+        });
+ 
+    }else{
+        this.$message.error('不能空结。老板了解你急切的心情！');
+    }
+ 
+},
      addOrderList(goods){
             this.totalCount=0; //汇总数量清0
             this.totalMoney=0;
@@ -190,13 +207,21 @@ mounted: function(){
                 this.totalMoney=this.totalMoney+(element.price*element.count);   
             });
            
-      }
-  },
-        delSingleGoods(goods){
+      },
+           //删除单个商品
+      delSingleGoods(goods){
         console.log(goods);
         this.tableData=this.tableData.filter(o => o.goodsId !=goods.goodsId);
  
       },
+      delAllGoods() {
+            this.tableData = [];
+            this.totalCount = 0;
+            this.totalMoney = 0;
+        },
+  
+  },
+   
 // mounted:function(){
 //       var orderHeight=document.body.clientHeight;
 //       document.getElementById("order-list").style.height=orderHeight+'px';
