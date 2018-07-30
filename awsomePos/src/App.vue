@@ -1,46 +1,42 @@
-
 <template>
   <div id="app">
-    <leftNav />
+    <!--左侧导航-->
+    
+        <leftNav></leftNav>
+    
+    <!--操作区域-->
     <div class="main">
-      <router-view ></router-view>
-      <!-- <transition name="fade"></transition> -->
+      <router-view></router-view>
     </div>
-  
-
   </div>
 </template>
-
+ 
 <script>
 import leftNav from '@/components/common/leftNav'
 export default {
-  name: "App",
+  name: 'app',
   components:{
     leftNav
   }
-};
+}
 </script>
-
+ 
 <style>
-.fade-enter {
-  opacity:0;
+#app {
+  font-family: 'Microsoft YaHei','Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: left;
+  color: #2c3e50;
+   height:100%;
 }
-.fade-leave{
-  opacity:1;
-}
-.fade-enter-active{
-  transition:opacity .5s;
-}
-.fade-leave-active{
-  opacity:0;
-  transition:opacity .5s;
-}
+ 
 .main{
-  float: left;
-  width: 95%;
-  background-color: #eff2f7;
-  height: 100%;
-  overflow: hidden;
-
+  float:left;
+  width:95%; 
+  background-color: #EFF2F7;
+  height:100%;
+  overflow: auto;
+ 
 }
 </style>
